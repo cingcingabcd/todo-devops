@@ -1,0 +1,42 @@
+services:
+  app:
+    build: .
+    image: todo-devops:v1.0
+    ports:
+      - "3000:3000"
+    environment:
+      PORT: 3000
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - todo-net
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+    volumes:
+      - mysqldata:/var/lib/mysql
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u $$DB_USER -p$$DB_PASSWORD --silent"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    networks:
+      - todo-net
+
+networks:
+  todo-net:
+
+volumes:
+  mysqldata:

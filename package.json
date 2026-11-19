@@ -1,0 +1,14 @@
+{
+  "name": "todo-devops",
+  "version": "1.0.0",
+  "description": "Aplikasi To-Do sederhana untuk UTS DevOps dan CI/CD",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "mysql2": "^3.24.6"
+  }
+}

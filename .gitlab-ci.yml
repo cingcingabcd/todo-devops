@@ -1,0 +1,35 @@
+# Pipeline CI: build -> test. Trigger: setiap push dan merge request.
+image: node:20-alpine
+
+stages:
+  - build
+  - test
+
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+
+cache:
+  key: $CI_COMMIT_REF_SLUG
+  paths:
+    - node_modules/
+
+build-job:
+  stage: build
+  script:
+    - npm ci
+    - mkdir -p dist
+    - cp -r src public package.json package-lock.json dist/
+    - echo "build $CI_COMMIT_SHORT_SHA" > dist/BUILD_INFO.txt
+  artifacts:
+    name: "todo-devops-$CI_COMMIT_SHORT_SHA"
+    paths:
+      - dist/
+    expire_in: 1 week
+
+test-job:
+  stage: test
+  script:
+    - npm ci
+    - npm test
