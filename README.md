@@ -13,7 +13,7 @@ Tambah, tandai selesai, dan hapus tugas. Data disimpan di MySQL.
 cp .env.example .env      # lalu ubah DB_PASSWORD
 docker compose up -d --build
 ```
-Buka http://localhost:3000
+Buka http://localhost:3001 (port host 3000 dipakai `npm start`)
 
 Hentikan: `docker compose down` (data tetap ada di volume `mysqldata`).
 Hapus beserta data: `docker compose down -v`.
