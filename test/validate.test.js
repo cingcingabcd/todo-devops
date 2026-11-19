@@ -14,5 +14,5 @@ test('judul non-string ditolak', () => {
   assert.strictEqual(validateTitle(123).ok, false);
 });
 test('judul lebih dari 100 karakter ditolak', () => {
-  assert.strictEqual(validateTitle('a'.repeat(100)).ok, false);
+  assert.strictEqual(validateTitle('a'.repeat(101)).ok, false);
 });
