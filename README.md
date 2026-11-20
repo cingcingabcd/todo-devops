@@ -1,5 +1,8 @@
 # To-Do DevOps
 
+Arizal Akbar Sugiyanto 
+06.2022.1.07557
+
 Aplikasi web To-Do sederhana (Node.js + Express + MySQL) untuk UTS DevOps dan CI/CD.
 Dipakai untuk demo Git (Soal 1), pipeline CI GitLab (Soal 2), dan Docker (Soal 3).
 
